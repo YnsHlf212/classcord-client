@@ -1,0 +1,4 @@
+fr\classcord\model\Message.class
+fr\classcord\app\App.class
+fr\classcord\model\User.class
+fr\classcord\network\ClientInvite.class
