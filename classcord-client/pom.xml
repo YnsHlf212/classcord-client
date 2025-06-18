@@ -25,14 +25,9 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <dependency>
-        <groupId>org.json</groupId>
-        <artifactId>json</artifactId>
-        <version>20231013</version>
-      </dependency>
     </dependencies>
   </dependencyManagement>
- 
+
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -44,6 +39,11 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20231013</version>
     </dependency>
   </dependencies>
  
