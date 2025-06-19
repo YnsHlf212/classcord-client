@@ -1,12 +1,15 @@
 package fr.classcord.app;
-import fr.classcord.model.Message;
-import fr.classcord.model.User;
+
+import fr.classcord.network.ClientInvite;
+import fr.classcord.ui.LoginFrame;
+
+import javax.swing.SwingUtilities;
 
 public class App {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-        User user = new User("Alice", "online");
-        Message message = new Message("text", "chat", user.getUsername(), "Bob", "Hello, Bob!", "2025-16-06:12:15");
-        System.out.println(message); // Appelle toString()
+        SwingUtilities.invokeLater(() -> {
+            ClientInvite client = new ClientInvite();
+            new LoginFrame(client);
+        });
     }
 }
