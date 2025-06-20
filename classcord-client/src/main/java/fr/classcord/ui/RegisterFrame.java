@@ -1,17 +1,25 @@
 package fr.classcord.ui;
 
-import fr.classcord.network.ClientInvite;
-import org.json.JSONObject;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
+import org.json.JSONObject;
+
+import fr.classcord.network.ClientInvite;
+
 public class RegisterFrame extends JFrame {
 
-    private JTextField ipField = new JTextField("10.0.108.55");
-    private JTextField portField = new JTextField("12345");
+    private JTextField ipField = new JTextField("");
+    private JTextField portField = new JTextField("");
     private JTextField usernameField = new JTextField();
     private JPasswordField passwordField = new JPasswordField();
     private JButton registerButton = new JButton("S'inscrire");

@@ -1,56 +1,108 @@
 package fr.classcord.ui;
 
-import fr.classcord.network.ClientInvite;
-import org.json.JSONObject;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
+import org.json.JSONObject;
+
+import fr.classcord.network.ClientInvite;
+
 public class LoginFrame extends JFrame {
 
-    private JTextField ipField = new JTextField("10.0.108.55");
-    private JTextField portField = new JTextField("12345");
-    private JTextField usernameField = new JTextField("TEST");
-    private JPasswordField passwordField = new JPasswordField("1234");
+    private JTextField ipField = new JTextField("");
+    private JTextField portField = new JTextField("");
+    private JTextField usernameField = new JTextField("");
+    private JPasswordField passwordField = new JPasswordField("");
     private JButton loginButton = new JButton("Se connecter");
     private JButton registerButton = new JButton("S'inscrire");
+    private JButton guestButton = new JButton("Se connecter en tant qu'invité");
+
+
     private JLabel statusLabel = new JLabel(" ");
 
     private ClientInvite client;
     private boolean listenerAdded = false; // Pour ne pas ajouter plusieurs fois
 
     public LoginFrame(ClientInvite client) {
-        super("Connexion");
+    super("Connexion");
 
-        this.client = client;
+    this.client = client;
 
-        setLayout(new GridLayout(7, 2, 5, 5));
-        setSize(350, 250);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+    setSize(300, 250);
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setLocationRelativeTo(null);
 
-        add(new JLabel("IP serveur :"));
-        add(ipField);
-        add(new JLabel("Port :"));
-        add(portField);
-        add(new JLabel("Nom d'utilisateur :"));
-        add(usernameField);
-        add(new JLabel("Mot de passe :"));
-        add(passwordField);
-        add(loginButton);
-        add(registerButton);
-        add(statusLabel);
+    setLayout(new GridBagLayout());
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(5, 5, 5, 5);
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.gridx = 0;
+    gbc.gridy = 0;
 
-        loginButton.addActionListener(new LoginListener());
-        registerButton.addActionListener(e -> {
-            // Ouvre la fenêtre d'inscription sans fermer celle-ci
-            new RegisterFrame(client);
-        });
+    // Ligne IP
+    add(new JLabel("IP serveur :"), gbc);
+    gbc.gridx = 1;
+    add(ipField, gbc);
 
-        setVisible(true);
-    }
+    // Ligne Port
+    gbc.gridy++;
+    gbc.gridx = 0;
+    add(new JLabel("Port :"), gbc);
+    gbc.gridx = 1;
+    add(portField, gbc);
+
+    // Ligne nom d'utilisateur
+    gbc.gridy++;
+    gbc.gridx = 0;
+    add(new JLabel("Nom d'utilisateur :"), gbc);
+    gbc.gridx = 1;
+    add(usernameField, gbc);
+
+    // Ligne mot de passe
+    gbc.gridy++;
+    gbc.gridx = 0;
+    add(new JLabel("Mot de passe :"), gbc);
+    gbc.gridx = 1;
+    add(passwordField, gbc);
+
+    // Boutons login/register
+    gbc.gridy++;
+    gbc.gridx = 0;
+    add(loginButton, gbc);
+    gbc.gridx = 1;
+    add(registerButton, gbc);
+
+    // Bouton invité centré
+    gbc.gridy++;
+    gbc.gridx = 0;
+    gbc.gridwidth = 2;
+    gbc.anchor = GridBagConstraints.CENTER;
+    add(guestButton, gbc);
+    gbc.anchor = GridBagConstraints.WEST; // reset pour la suite
+    gbc.gridwidth = 1;
+
+    // Label de statut
+    gbc.gridy++;
+    gbc.gridx = 0;
+    gbc.gridwidth = 2;
+    add(statusLabel, gbc);
+
+    loginButton.addActionListener(new LoginListener());
+    registerButton.addActionListener(e -> new RegisterFrame(client));
+    guestButton.addActionListener(e -> new GuestConnectFrame());
+
+    setVisible(true);
+}
 
     private class LoginListener implements ActionListener {
         @Override
